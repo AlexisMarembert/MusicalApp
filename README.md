@@ -14,15 +14,18 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
 
 ## DEVELOPER PART
 
-### Start git project on Ubuntu OS
+### Import GitHub project on Ubuntu OS
+#### Clone
 1. `$ mkdir MusicalApp`
 2. `$ git clone https://github.com/AlexisMarembert/MusicalApp.git /home/alexis/Documents/MusicalApp`
-
-### Update git project on Ubuntu OS
+#### Update
 1. `$ git add .`
 2. `$ git commit -m "comment what's changed"`
 3. `$ git pull`
 4. `$ git push`
+
+### Import GitHub project to Android Studio
+- Watch this video: https://www.youtube.com/watch?v=Y6gmmQZsuLE
 
 ### TODO list
 - [ ] **Main page**
