@@ -10,8 +10,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/goToMetronom"
+        android:id="@+id/goToMetronome"
         android:onClick="goToMetronome"
-        android:text="Metronome"/>
+        android:text="@string/metronome"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goToMetronome"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/goToInstrument"
+        android:onClick="goToInstrument"
+        android:text="@string/instrument_chords"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goToInstrument"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/goToVisualize"
+        android:onClick="goToVisualize"
+        android:text="@string/visualize_music"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/exit"
+        android:onClick="exit"
+        android:text="@string/exit"/>
 
 </RelativeLayout>

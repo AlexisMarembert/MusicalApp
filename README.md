@@ -29,18 +29,19 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
 
 ### TODO list
 - [ ] **Main page**
-  - [ ] button to link "Metronome" page
-  - [ ] button to link "Instrument chords" page
-  - [ ] button to link "Visualize music" page
+  - [x] button to link "Metronome" page
+  - [x] button to link "Instrument chords" page
+  - [x] button to link "Visualize music" page
   - [ ] saved user preferences
   - [ ] settings button
-  - [ ] exit button
+  - [x] exit button
   
 - [ ] **Metronome page**
   - [ ] visualize metronome
   - [ ] sound rhythm
   - [ ] button for settings popup
   - [ ] information to check if we are in the rhythm
+  - [x] button for back to main
   
 - [ ] **Instrument chords page**
   - [ ] select instrument
@@ -48,14 +49,16 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
   - [ ] input sound
   - [ ] informations to check if we are in the rhythm
   - [ ] button settings to create chords
+  - [x] button for back to main
   
 - [ ] **Visualize music**
   - [ ] input sound
   - [ ] visualize music per frequency
+  - [x] button for back to main
   
 - [ ] **Additionals options**
   - [ ] drop down menu while menu page exited
-  - [ ] french and english edition
+  - [x] french and english edition
   - [ ] ask for micro habilitation
 
 ---

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MusicalApp</string>
+    <string name="metronome">Metronome</string>
+    <string name="instrument_chords">Accordeur d\'Instruments</string>
+    <string name="visualize_music">Visualiser la Musique</string>
+    <string name="exit">Quitter</string>
+    <string name="back_menu">Retour Menu</string>
+    <string name="bip">BIP</string>
+</resources>

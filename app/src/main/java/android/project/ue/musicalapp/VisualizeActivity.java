@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.Timer;
+public class VisualizeActivity extends Activity {
 
-public class InstrumentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_instrument);
+        setContentView(R.layout.activity_visualize);
     }
 
     @Override

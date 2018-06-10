@@ -15,8 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MetronomeActivity"/>
-        <activity android:name=".InstrumentActivity"/>
+        <activity android:name=".MetronomeActivity"></activity>
+        <activity android:name=".InstrumentActivity"></activity>
+        <activity android:name=".VisualizeActivity"></activity>
     </application>
 
 </manifest>

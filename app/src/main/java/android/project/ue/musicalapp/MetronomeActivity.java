@@ -1,6 +1,7 @@
 package android.project.ue.musicalapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ public class MetronomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metronome);
-        metroButton = findViewById(R.id.metronomButton);
+        metroButton = findViewById(R.id.metronomeButton);
         metroTimer  = new Timer();
     }
 
@@ -46,7 +47,7 @@ public class MetronomeActivity extends Activity {
                             metroButton.setBackgroundColor(Color.RED);
                         }
                     });
-                }else {
+                } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -57,5 +58,15 @@ public class MetronomeActivity extends Activity {
                 isRed = !isRed;
             }
         }, new Date(), waitMetronome);
+    }
+
+    /**
+     * Method called when button "goToMain" is called
+     * Then start activity "MainActivity"
+     * @param v
+     */
+    public void goToMain(View v) {
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
     }
 }
