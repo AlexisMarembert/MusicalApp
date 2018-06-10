@@ -24,7 +24,7 @@ public class VisualizeActivity extends Activity {
     }
 
     /**
-     * Method called when button "goToMain" is called
+     * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"
      * @param v
      */

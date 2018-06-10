@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.Timer;
 
 public class InstrumentActivity extends Activity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class InstrumentActivity extends Activity {
     }
 
     /**
-     * Method called when button "goToMain" is called
+     * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"
      * @param v
      */

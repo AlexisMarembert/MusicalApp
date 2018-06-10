@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called when button "goToMetronome" is called
+     * Method called when button "goToMetronome" is pressed
      * Then start activity "MetronomeActivity"
      * @param v
      */
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called when button "goToInstrument" is called
+     * Method called when button "goToInstrument" is pressed
      * Then start activity "InstrumentActivity"
      * @param v
      */
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called when button "goToVisualize" is called
+     * Method called when button "goToVisualize" is pressed
      * Then start activity "VisualizeActivity"
      * @param v
      */
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called when button "exit" is called
+     * Method called when button "exit" is pressed
      * Then close application
      * @param v
      */

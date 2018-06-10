@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:id="@+id/metronomeButton"
-        android:onClick="startMetronome"
+        android:enabled="false"
         android:text="@string/bip"/>
 
     <Button
@@ -22,5 +22,24 @@
         android:id="@+id/mainButton"
         android:onClick="goToMain"
         android:text="@string/back_menu"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/metronomeButton"
+        android:gravity="left"
+        android:id="@+id/metronomeInterval"
+        android:inputType="number"
+        android:hint="@string/metronome_interval"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/metronomeInterval"
+        android:layout_toRightOf="@id/metronomeInterval"
+        android:id="@+id/configMetronome"
+        android:onClick="configMetronome"
+        android:text="@string/ok"/>
 
 </RelativeLayout>

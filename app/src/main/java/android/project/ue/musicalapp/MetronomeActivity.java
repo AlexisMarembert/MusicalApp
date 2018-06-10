@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.Date;
 import java.util.Timer;
@@ -15,8 +16,9 @@ public class MetronomeActivity extends Activity {
 
     private Button metroButton;
     private Timer metroTimer;
-    private int waitMetronome = 1000;
+    private int waitMetronome;
     private boolean isRed = true;
+    private EditText eText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,17 @@ public class MetronomeActivity extends Activity {
         super.onResume();
     }
 
-    public void startMetronome(View v) {
+    /**
+     * Method called when button "configMetronome" is pressed
+     * Then update integer "waitMetronome" and call method "startMetronome"
+     * @param v
+     */
+    public void configMetronome(View v) {
+        metroTimer.cancel();
+        metroTimer  = new Timer();
+        eText = (EditText) findViewById(R.id.metronomeInterval);
+        waitMetronome = Integer.parseInt(eText.getText().toString());
+
         metroTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -51,7 +63,7 @@ public class MetronomeActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            metroButton.setBackgroundColor(Color.BLUE);
+                            metroButton.setBackgroundColor(Color.GREEN);
                         }
                     });
                 }
@@ -61,7 +73,7 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
-     * Method called when button "goToMain" is called
+     * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"
      * @param v
      */
