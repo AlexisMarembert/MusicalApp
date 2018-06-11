@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MetronomeActivity">
+    tools:context=".MetronomeActivity"
+    android:background="@drawable/metronome">
 
     <Button
         android:layout_width="wrap_content"
@@ -31,6 +32,10 @@
         android:gravity="left"
         android:id="@+id/metronomeInterval"
         android:inputType="number"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textColorHighlight="@android:color/darker_gray"
+        android:textCursorDrawable="@android:color/white"
         android:hint="@string/metronome_interval"/>
 
     <Button
