@@ -19,6 +19,8 @@ public class MetronomeActivity extends Activity {
     private int waitMetronome;
     private boolean isRed = true;
     private EditText eText;
+    long startTime;
+    long EndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class MetronomeActivity extends Activity {
         eText = (EditText) findViewById(R.id.metronomeInterval);
         waitMetronome = Integer.parseInt(eText.getText().toString());
 
-        metroTimer.schedule(new TimerTask() {
+        metroTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (isRed) {
