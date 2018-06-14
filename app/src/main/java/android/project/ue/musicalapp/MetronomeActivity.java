@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Timer;
@@ -21,6 +23,7 @@ public class MetronomeActivity extends Activity {
     private EditText eText;
     long startTime;
     long EndTime;
+    private NumberPicker np;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,11 @@ public class MetronomeActivity extends Activity {
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
         metroTimer  = new Timer();
+
+        np = findViewById(R.id.selectMetronomeInterval);
+        np.setMinValue(200);
+        np.setMaxValue(20000);
+        np.setOnValueChangedListener(onValueChangeListener);
     }
 
     @Override
@@ -83,4 +91,15 @@ public class MetronomeActivity extends Activity {
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
     }
+
+    /**
+     * Listener on Number Picker
+     */
+    NumberPicker.OnValueChangeListener onValueChangeListener =
+            new NumberPicker.OnValueChangeListener(){
+                @Override
+                public void onValueChange(NumberPicker nb, int i, int i1) {
+                    Toast.makeText(MetronomeActivity.this,"selected number "+nb.getValue(), Toast.LENGTH_SHORT);
+                }
+            };
 }
