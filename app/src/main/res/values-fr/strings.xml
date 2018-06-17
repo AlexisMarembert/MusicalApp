@@ -6,7 +6,6 @@
     <string name="exit">Quitter</string>
     <string name="back_menu">Retour Menu</string>
     <string name="bip">BIP</string>
-    <string name="metronome_interval">Intervalle du Metronome</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="reset">recommencer</string>
 </resources>
