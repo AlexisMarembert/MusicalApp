@@ -106,9 +106,9 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : reset metronome configuration
-     * @param view
+     * @param v
      */
-    public void resetConfigMetronome(View view) {
+    public void resetConfigMetronome(View v) {
         metroTimer.cancel();
         metroButton.setBackgroundResource(R.drawable.button_metronome_off);
     }
@@ -119,8 +119,7 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void goToMain(View v) {
-        Intent myIntent = new Intent(this, MainActivity.class);
-        startActivity(myIntent);
+        finish();
     }
 
 }

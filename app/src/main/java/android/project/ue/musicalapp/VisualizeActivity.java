@@ -29,7 +29,6 @@ public class VisualizeActivity extends Activity {
      * @param v
      */
     public void goToMain(View v) {
-        Intent myIntent = new Intent(this, MainActivity.class);
-        startActivity(myIntent);
+        finish();
     }
 }
