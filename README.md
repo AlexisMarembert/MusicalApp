@@ -37,10 +37,10 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
   - [x] exit button
   
 - [ ] **Metronome page**
-  - [ ] visualize metronome
+  - [x] visualize metronome
   - [ ] sound rhythm
-  - [ ] button for settings popup
-  - [ ] information to check if we are in the rhythm
+  - [x] button set interval
+  - [x] button reset interval
   - [x] button for back to main
   
 - [ ] **Instrument chords page**
