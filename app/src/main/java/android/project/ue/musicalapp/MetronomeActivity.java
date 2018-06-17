@@ -3,6 +3,7 @@ package android.project.ue.musicalapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,9 +22,8 @@ public class MetronomeActivity extends Activity {
     private int waitMetronome;
     private boolean isRed = true;
     private EditText eText;
-    long startTime;
-    long EndTime;
     private NumberPicker np;
+    private Drawable drwb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +31,7 @@ public class MetronomeActivity extends Activity {
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
         metroTimer  = new Timer();
-
-        np = findViewById(R.id.selectMetronomeInterval);
-        np.setMinValue(200);
-        np.setMaxValue(20000);
-        np.setOnValueChangedListener(onValueChangeListener);
+        initMetronomeInterval();
     }
 
     @Override
@@ -49,6 +45,35 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
+     *  Method : initialise metronome interval list
+     */
+    public void initMetronomeInterval () {
+        String [] values = new String []{
+                "40", "42", "44", "46", "48","50", "52", "54", "56",
+                "58", "60", "63", "66", "69", "72", "76", "80", "84",
+                "88", "92", "96", "100", "104", "108", "112", "116",
+                "120", "126", "132", "138", "144", "152", "160",
+                "168", "176", "184", "192", "200", "208"
+        };
+
+        np = findViewById(R.id.selectMetronomeInterval);
+        np.setDisplayedValues(values);
+        np.setMinValue(0);
+        np.setMaxValue(values.length-1);
+        np.setOnValueChangedListener(onValueChangeListener);
+    }
+
+    /**
+     * Listener on Number Picker
+     */
+    NumberPicker.OnValueChangeListener onValueChangeListener =
+            new NumberPicker.OnValueChangeListener(){
+                @Override
+                public void onValueChange(NumberPicker nb, int i, int i1) {
+                    Toast.makeText(MetronomeActivity.this,"selected number "+nb.getValue(), Toast.LENGTH_SHORT);
+                }
+            };
+    /**
      * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
      * @param v
@@ -56,7 +81,7 @@ public class MetronomeActivity extends Activity {
     public void configMetronome(View v) {
         metroTimer.cancel();
         metroTimer  = new Timer();
-        eText = (EditText) findViewById(R.id.metronomeInterval);
+        eText = findViewById(R.id.metronomeInterval);
         waitMetronome = Integer.parseInt(eText.getText().toString());
 
         metroTimer.scheduleAtFixedRate(new TimerTask() {
@@ -66,14 +91,14 @@ public class MetronomeActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            metroButton.setBackgroundColor(Color.RED);
+                            metroButton.setBackgroundResource(R.drawable.button_metronome_on);
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            metroButton.setBackgroundColor(Color.GREEN);
+                            metroButton.setBackgroundResource(R.drawable.button_metronome_off);
                         }
                     });
                 }
@@ -92,14 +117,4 @@ public class MetronomeActivity extends Activity {
         startActivity(myIntent);
     }
 
-    /**
-     * Listener on Number Picker
-     */
-    NumberPicker.OnValueChangeListener onValueChangeListener =
-            new NumberPicker.OnValueChangeListener(){
-                @Override
-                public void onValueChange(NumberPicker nb, int i, int i1) {
-                    Toast.makeText(MetronomeActivity.this,"selected number "+nb.getValue(), Toast.LENGTH_SHORT);
-                }
-            };
 }
