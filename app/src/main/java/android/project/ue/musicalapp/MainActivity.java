@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void exit(View v) {
-        finishActivity(0);
-        moveTaskToBack(true);
+        finish();
     }
 }
