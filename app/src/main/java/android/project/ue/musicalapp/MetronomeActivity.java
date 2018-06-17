@@ -2,12 +2,9 @@ package android.project.ue.musicalapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -19,10 +16,16 @@ public class MetronomeActivity extends Activity {
 
     private Button metroButton;
     private Timer metroTimer;
-    private int waitMetronome;
+    private double waitMetronome;
     private boolean isRed = true;
-    private EditText eText;
     private NumberPicker np;
+    private String [] values = new String []{
+            "40", "42", "44", "46", "48","50", "52", "54", "56",
+            "58", "60", "63", "66", "69", "72", "76", "80", "84",
+            "88", "92", "96", "100", "104", "108", "112", "116",
+            "120", "126", "132", "138", "144", "152", "160",
+            "168", "176", "184", "192", "200", "208"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +50,6 @@ public class MetronomeActivity extends Activity {
      *  Method : initialise metronome interval list
      */
     public void initMetronomeInterval () {
-        String [] values = new String []{
-                "40", "42", "44", "46", "48","50", "52", "54", "56",
-                "58", "60", "63", "66", "69", "72", "76", "80", "84",
-                "88", "92", "96", "100", "104", "108", "112", "116",
-                "120", "126", "132", "138", "144", "152", "160",
-                "168", "176", "184", "192", "200", "208"
-        };
-
         np = findViewById(R.id.selectMetronomeInterval);
         np.setDisplayedValues(values);
         np.setMinValue(0);
@@ -80,30 +75,42 @@ public class MetronomeActivity extends Activity {
     public void configMetronome(View v) {
         metroTimer.cancel();
         metroTimer  = new Timer();
-        eText = findViewById(R.id.metronomeInterval);
-        waitMetronome = Integer.parseInt(eText.getText().toString());
+        waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
 
-        metroTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (isRed) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            metroButton.setBackgroundResource(R.drawable.button_metronome_on);
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-                        }
-                    });
+        if (waitMetronome > 0.0) {
+            metroTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (isRed) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                metroButton.setBackgroundResource(R.drawable.button_metronome_on);
+                            }
+                        });
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+                            }
+                        });
+                    }
+                    isRed = !isRed;
                 }
-                isRed = !isRed;
-            }
-        }, new Date(), waitMetronome);
+            }, new Date(), (int)waitMetronome);
+        } else {
+            metroTimer.cancel();
+        }
+    }
+
+    /**
+     * Method : reset metronome configuration
+     * @param view
+     */
+    public void resetConfigMetronome(View view) {
+        metroTimer.cancel();
+        metroButton.setBackgroundResource(R.drawable.button_metronome_off);
     }
 
     /**

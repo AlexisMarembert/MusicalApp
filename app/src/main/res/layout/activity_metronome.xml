@@ -25,33 +25,34 @@
         android:onClick="goToMain"
         android:text="@string/back_menu"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/metronomeButton"
-        android:gravity="left"
-        android:id="@+id/metronomeInterval"
-        android:inputType="number"
-        android:textColorHint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:textColorHighlight="@android:color/darker_gray"
-        android:textCursorDrawable="@android:color/white"
-        android:hint="@string/metronome_interval"/>
-
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/metronomeButton"
+        android:layout_centerVertical="true"
+        android:solidColor="@android:color/white"
+        android:background="@android:color/darker_gray"
+        android:descendantFocusability="blocksDescendants"
         android:id="@+id/selectMetronomeInterval"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/metronomeInterval"
-        android:layout_toRightOf="@id/metronomeInterval"
+        android:layout_alignBaseline="@id/metronomeButton"
+        android:layout_toRightOf="@id/metronomeButton"
         android:id="@+id/configMetronome"
         android:onClick="configMetronome"
         android:text="@string/ok"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/metronomeButton"
+        android:layout_below="@+id/configMetronome"
+        android:id="@+id/resetConfigMetronome"
+        android:onClick="resetConfigMetronome"
+        android:text="@string/reset"/>
 
 </RelativeLayout>
