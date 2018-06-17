@@ -23,7 +23,6 @@ public class MetronomeActivity extends Activity {
     private boolean isRed = true;
     private EditText eText;
     private NumberPicker np;
-    private Drawable drwb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
