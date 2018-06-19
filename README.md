@@ -19,10 +19,11 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
 1. `$ mkdir MusicalApp`
 2. `$ git clone https://github.com/AlexisMarembert/MusicalApp.git /home/alexis/Documents/MusicalApp`
 #### Update
-1. `$ git add .`
-2. `$ git commit -m "comment what's changed"`
-3. `$ git pull`
-4. `$ git push`
+1. `$ git config credential.helper store`
+2. `$ git add .`
+3. `$ git commit -m "comment what's changed"`
+4. `$ git pull`
+5. `$ git push`
 
 ### Import GitHub project to Android Studio
 - Watch this video: https://www.youtube.com/watch?v=Y6gmmQZsuLE
