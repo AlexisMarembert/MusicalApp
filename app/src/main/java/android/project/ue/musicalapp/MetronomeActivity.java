@@ -1,7 +1,6 @@
 package android.project.ue.musicalapp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +15,11 @@ public class MetronomeActivity extends Activity {
 
     private Button metroButton;
     private Timer metroTimer;
-    private double waitMetronome;
     private boolean isRed = true;
     private NumberPicker np;
-    private String [] values = new String []{
-            "40", "42", "44", "46", "48","50", "52", "54", "56",
-            "58", "60", "63", "66", "69", "72", "76", "80", "84",
-            "88", "92", "96", "100", "104", "108", "112", "116",
-            "120", "126", "132", "138", "144", "152", "160",
-            "168", "176", "184", "192", "200", "208"
-    };
+    private int minValues = 30;
+    private int maxValues = 240;
+    String [] values = new String [maxValues - minValues];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +41,24 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
+     *
+     */
+    public void setValues() {
+        int j = values.length;
+        for (int i = 0; i < j; i++) {
+            values[i] = Integer.toString(i + minValues);
+        }
+    }
+
+    /**
      *  Method : initialise metronome interval list
      */
     public void initMetronomeInterval () {
+        setValues();
         np = findViewById(R.id.selectMetronomeInterval);
         np.setDisplayedValues(values);
         np.setMinValue(0);
-        np.setMaxValue(values.length-1);
+        np.setMaxValue(values.length - 1);
         np.setOnValueChangedListener(onValueChangeListener);
     }
 
@@ -75,7 +80,7 @@ public class MetronomeActivity extends Activity {
     public void configMetronome(View v) {
         metroTimer.cancel();
         metroTimer  = new Timer();
-        waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
+        double waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
 
         if (waitMetronome > 0.0) {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
@@ -98,7 +103,7 @@ public class MetronomeActivity extends Activity {
                     }
                     isRed = !isRed;
                 }
-            }, new Date(), (int)waitMetronome);
+            }, new Date(), (int) waitMetronome);
         } else {
             metroTimer.cancel();
         }
