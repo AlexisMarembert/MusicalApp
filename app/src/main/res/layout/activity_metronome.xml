@@ -55,4 +55,17 @@
         android:onClick="resetConfigMetronome"
         android:text="@string/reset"/>
 
+
+    <NumberPicker
+        android:id="@+id/selectMetronomeMetric"
+        android:layout_width="34dp"
+        android:layout_height="104dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/selectMetronomeInterval"
+        android:background="@android:color/darker_gray"
+        android:descendantFocusability="blocksDescendants"
+        android:solidColor="@android:color/white" />
+
 </RelativeLayout>

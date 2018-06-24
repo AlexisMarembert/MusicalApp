@@ -1,6 +1,8 @@
 package android.project.ue.musicalapp;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +19,31 @@ public class MetronomeActivity extends Activity {
     private Timer metroTimer;
     private boolean isRed = true;
     private NumberPicker np;
+    private NumberPicker npMetric;
     private int minValues = 30;
-    private int maxValues = 240;
-    String [] values = new String [maxValues - minValues];
+    private int maxValues = 241;
+    private String [] values = new String [maxValues - minValues];
+    private String [] metrics = {"1/4" , "2/4" , "3/4" , "4/4"} ;
+    private int metricCpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        metricCpt = 0;
+        NumberPicker.OnScrollListener scrollListener = new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                Toast.makeText(MetronomeActivity.this,"selected number "+scrollState, Toast.LENGTH_SHORT);
+
+            }
+        };
+       // np.setOnScrollListener(scrollListener);
+        //npMetric.setOnScrollListener((scrollListener));
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
         metroTimer  = new Timer();
         initMetronomeInterval();
+        initMetronomeMetric() ;
     }
 
     @Override
@@ -59,28 +75,44 @@ public class MetronomeActivity extends Activity {
         np.setDisplayedValues(values);
         np.setMinValue(0);
         np.setMaxValue(values.length - 1);
-        np.setOnValueChangedListener(onValueChangeListener);
     }
 
-    /**
-     * Listener on Number Picker
-     */
-    NumberPicker.OnValueChangeListener onValueChangeListener =
-            new NumberPicker.OnValueChangeListener(){
-                @Override
-                public void onValueChange(NumberPicker nb, int i, int i1) {
-                    Toast.makeText(MetronomeActivity.this,"selected number "+nb.getValue(), Toast.LENGTH_SHORT);
-                }
-            };
+    public void initMetronomeMetric () {
+
+        npMetric= findViewById(R.id.selectMetronomeMetric);
+        npMetric.setDisplayedValues(metrics);
+        npMetric.setMinValue(0);
+        npMetric.setMaxValue(metrics.length - 1);
+    }
+
+    public static int getMetricValue(String stringValue){
+        if(stringValue.equals("1/4")) return 1 ;
+        if(stringValue.equals("2/4")) return 2 ;
+        if(stringValue.equals("3/4")) return 3 ;
+        if(stringValue.equals("4/4")) return 4 ;
+        return -1 ;
+    }
+
+    //Play a Strong beat or a Weak depending on the given metric
+    private void playTone(int counter ,int metric ,ToneGenerator toneGen){
+        if(counter % metric == 0)
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP,150);
+        else
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT,150);
+    }
+
+
     /**
      * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
-     * @param v
      */
     public void configMetronome(View v) {
         metroTimer.cancel();
         metroTimer  = new Timer();
+
+        final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
         double waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
+        final int metricValue = getMetricValue(metrics[npMetric.getValue()]) ;
 
         if (waitMetronome > 0.0) {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
@@ -91,6 +123,7 @@ public class MetronomeActivity extends Activity {
                             @Override
                             public void run() {
                                 metroButton.setBackgroundResource(R.drawable.button_metronome_on);
+                                playTone(metricCpt, metricValue,toneGen) ;
                             }
                         });
                     } else {
@@ -98,9 +131,14 @@ public class MetronomeActivity extends Activity {
                             @Override
                             public void run() {
                                 metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+                                playTone(metricCpt, metricValue,toneGen) ;
                             }
                         });
                     }
+
+                    metricCpt = ++metricCpt;
+                    if(metricCpt>metricValue) metricCpt=1 ;
+                    System.out.println(metricCpt);
                     isRed = !isRed;
                 }
             }, new Date(), (int) waitMetronome);
