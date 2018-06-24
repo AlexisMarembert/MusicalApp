@@ -19,6 +19,7 @@ Musical application, within **Metronome**, **Instrument chords** and **Music vis
 1. `$ mkdir MusicalApp`
 2. `$ git clone https://github.com/AlexisMarembert/MusicalApp.git /home/alexis/Documents/MusicalApp`
 #### Update
+option : `$ git config credential.helper store`
 1. `$ git add .`
 2. `$ git commit -m "comment what's changed"`
 3. `$ git pull`
