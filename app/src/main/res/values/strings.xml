@@ -8,4 +8,10 @@
     <string name="bip">BIP</string>
     <string name="ok">OK</string>
     <string name="reset">reset</string>
+    <string name="record">record</string>
+    <string name="stop">stop</string>
+    <string name="play">play</string>
+    <string name="stopListening">stop listening</string>
+    <string name="playLastRecord">play last record</string>
+    <string name="stopRecord">stop record</string>
 </resources>

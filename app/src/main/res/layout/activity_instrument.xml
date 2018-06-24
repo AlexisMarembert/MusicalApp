@@ -11,6 +11,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/record"
+        android:id="@+id/buttonRecord"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/buttonRecord"
+        android:layout_centerVertical="true"
+        android:text="@string/stopRecord"
+        android:id="@+id/buttonStopRecord"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonRecord"
+        android:layout_centerHorizontal="true"
+        android:text="@string/playLastRecord"
+        android:id="@+id/buttonPlayLastRecord"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonStopRecord"
+        android:layout_toRightOf="@id/buttonPlayLastRecord"
+        android:text="@string/stopListening"
+        android:id="@+id/buttonStopListening"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/mainButton"
         android:onClick="goToMain"
