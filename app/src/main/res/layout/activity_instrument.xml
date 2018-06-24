@@ -18,26 +18,65 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/buttonRecord"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/buttonRecord"
+        android:layout_centerHorizontal="true"
         android:text="@string/stopRecord"
         android:id="@+id/buttonStopRecord"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonRecord"
-        android:layout_centerHorizontal="true"
-        android:text="@string/playLastRecord"
-        android:id="@+id/buttonPlayLastRecord"/>
+        android:background="@drawable/rates_buttons"
+        android:gravity="center"
+        android:text="@string/E"
+        android:id="@+id/buttonEaigu"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonStopRecord"
-        android:layout_toRightOf="@id/buttonPlayLastRecord"
-        android:text="@string/stopListening"
-        android:id="@+id/buttonStopListening"/>
+        android:layout_below="@id/buttonEaigu"
+        android:background="@drawable/rates_buttons"
+        android:gravity="center"
+        android:text="@string/A"
+        android:id="@+id/buttonA"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonA"
+        android:background="@drawable/rates_buttons"
+        android:gravity="center"
+        android:text="@string/D"
+        android:id="@+id/buttonD"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/rates_buttons"
+        android:gravity="center"
+        android:text="@string/G"
+        android:id="@+id/buttonG"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/buttonG"
+        android:background="@drawable/rates_buttons"
+        android:gravity="center"
+        android:text="@string/B"
+        android:id="@+id/buttonB"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/buttonB"
+        android:gravity="center"
+        android:background="@drawable/rates_buttons"
+        android:text="@string/E"
+        android:id="@+id/buttonEgrave"/>
 
     <Button
         android:layout_width="wrap_content"

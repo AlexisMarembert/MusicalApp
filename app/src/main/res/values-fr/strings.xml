@@ -8,4 +8,13 @@
     <string name="bip">BIP</string>
     <string name="ok">OK</string>
     <string name="reset">recommencer</string>
+    <string name="record">enregistrer</string>
+    <string name="stop">stop</string>
+    <string name="play">jouer</string>
+    <string name="stopRecord">stopper enregistrement</string>
+    <string name="E">Mi</string>
+    <string name="A">La</string>
+    <string name="D">RF</string>
+    <string name="G">Sol</string>
+    <string name="B">Si</string>
 </resources>
