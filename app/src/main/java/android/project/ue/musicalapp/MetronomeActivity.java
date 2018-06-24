@@ -138,7 +138,6 @@ public class MetronomeActivity extends Activity {
 
                     metricCpt = ++metricCpt;
                     if(metricCpt>metricValue) metricCpt=1 ;
-                    System.out.println(metricCpt);
                     isRed = !isRed;
                 }
             }, new Date(), (int) waitMetronome);
