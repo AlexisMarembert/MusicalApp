@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rates_buttons"
+        android:layout_toLeftOf="@id/buttonRecord"
         android:gravity="center"
         android:text="@string/E"
         android:id="@+id/buttonEaigu"/>
@@ -36,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonEaigu"
         android:background="@drawable/rates_buttons"
+        android:layout_toLeftOf="@id/buttonRecord"
         android:gravity="center"
         android:text="@string/A"
         android:id="@+id/buttonA"/>
@@ -45,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonA"
         android:background="@drawable/rates_buttons"
+        android:layout_toLeftOf="@id/buttonRecord"
         android:gravity="center"
         android:text="@string/D"
         android:id="@+id/buttonD"/>
@@ -52,8 +55,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:background="@drawable/rates_buttons"
+        android:layout_toRightOf="@id/buttonRecord"
         android:gravity="center"
         android:text="@string/G"
         android:id="@+id/buttonG"/>
@@ -61,9 +64,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/buttonG"
         android:background="@drawable/rates_buttons"
+        android:layout_toRightOf="@id/buttonRecord"
         android:gravity="center"
         android:text="@string/B"
         android:id="@+id/buttonB"/>
@@ -71,10 +74,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/buttonB"
         android:gravity="center"
         android:background="@drawable/rates_buttons"
+        android:layout_toRightOf="@id/buttonRecord"
         android:text="@string/E"
         android:id="@+id/buttonEgrave"/>
 
