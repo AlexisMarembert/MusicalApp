@@ -167,32 +167,35 @@ public class MetronomeActivity extends Activity {
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
-        okButton.setEnabled(false);
-        resetButton.setEnabled(true);
-
         metroTimer.cancel() ;
         metroTimer  = new Timer();
 
         final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
-        double waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
+        double waitMetronome = 30000 / Double.parseDouble(values[np.getValue()]);
         final int metricValue = getMetricValue(metrics[npMetric.getValue()]) ;
 
         if (waitMetronome > 0.0) {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
+                boolean alt = true ;
                 @Override
                 public void run() {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            int type = playTone(metricCpt, metricValue, toneGen);
-                            changeColor(type);
-                            changeColor(0);
+                            if(alt) {
+                                int type = playTone(metricCpt, metricValue, toneGen);
+                                changeColor(type);
+                                metricCpt = ++metricCpt;
+                            }
+                            else {
+                                changeColor(0);
+                            }
+                            alt = ! alt ;
+                            if(metricCpt>metricValue) metricCpt=1 ;
                         }
                     });
 
-                    metricCpt = ++metricCpt;
-                    if(metricCpt>metricValue) metricCpt=1 ;
-                    isRed = !isRed;
+
                 }
             }, new Date(), (int) waitMetronome);
         } else {
