@@ -81,17 +81,6 @@
         android:text="@string/E"
         android:id="@+id/buttonEgrave"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="250px"
-        android:layout_onTopOf="@id/buttonRecord"
-        android:background="@android:color/background_dark"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:text="             "
-        android:id="@+id/DifferenceIndicator"/>
 
     <Button
         android:layout_width="wrap_content"
