@@ -32,15 +32,7 @@ public class MetronomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         metricCpt = 0;
-        NumberPicker.OnScrollListener scrollListener = new NumberPicker.OnScrollListener() {
-            @Override
-            public void onScrollStateChange(NumberPicker view, int scrollState) {
-                Toast.makeText(MetronomeActivity.this,"selected number "+scrollState, Toast.LENGTH_SHORT);
 
-            }
-        };
-        //np.setOnScrollListener(scrollListener);
-        //npMetric.setOnScrollListener((scrollListener));
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
         okButton = findViewById(R.id.configMetronome);
