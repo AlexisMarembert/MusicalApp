@@ -22,6 +22,5 @@
         </activity>
         <activity android:name=".MetronomeActivity"></activity>
         <activity android:name=".InstrumentActivity"></activity>
-        <activity android:name=".VisualizeActivity"></activity>
     </application>
 </manifest>
