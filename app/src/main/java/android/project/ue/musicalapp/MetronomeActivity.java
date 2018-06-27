@@ -46,16 +46,6 @@ public class MetronomeActivity extends Activity {
         initMetronomeMetric() ;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
      * Method : set metronome interval values
      */

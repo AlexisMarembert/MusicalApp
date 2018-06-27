@@ -13,16 +13,6 @@ public class VisualizeActivity extends Activity {
         setContentView(R.layout.activity_visualize);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
      * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"

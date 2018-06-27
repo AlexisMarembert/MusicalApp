@@ -22,9 +22,6 @@ public class InstrumentActivity extends Activity {
     private Button buttonRecord;
     private Button buttonStopRecord;
 
-    private int permStorage;
-    private int permAudio;
-
     private AudioRecord audioRecord;
     private int bufferSize;
 
@@ -62,18 +59,8 @@ public class InstrumentActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
-     * Method start record
+     * Method : start record
      */
     public void startRecord() {
         // audio record configuration
@@ -81,7 +68,7 @@ public class InstrumentActivity extends Activity {
         int configChannel = AudioFormat.CHANNEL_IN_MONO;
         int audioEncode = AudioFormat.ENCODING_PCM_16BIT;
 
-        // get sample rate valide
+        // get sample rate valid
         int sampleRate = 0;
         for (int rate : new int[]{8000, 11025, 16000, 22050, 44100}) {
             int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);

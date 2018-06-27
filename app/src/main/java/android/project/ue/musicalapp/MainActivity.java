@@ -13,16 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     /**
      * Method called when button "goToMetronome" is pressed
      * Then start activity "MetronomeActivity"
