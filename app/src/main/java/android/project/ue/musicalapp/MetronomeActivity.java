@@ -1,12 +1,18 @@
 package android.project.ue.musicalapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.Timer;
@@ -17,6 +23,7 @@ public class MetronomeActivity extends Activity {
     private Button metroButton;
     private Button okButton;
     private Button resetButton;
+    private Button addPrefButton;
     private Timer metroTimer;
     private boolean isRed = true;
     private NumberPicker np;
@@ -36,6 +43,7 @@ public class MetronomeActivity extends Activity {
         metroButton = findViewById(R.id.metronomeButton);
         okButton = findViewById(R.id.configMetronome);
         resetButton = findViewById(R.id.resetConfigMetronome);
+        addPrefButton = findViewById(R.id.buttonAddPreference);
 
         okButton.setEnabled(true);
         resetButton.setEnabled(false);
@@ -44,6 +52,13 @@ public class MetronomeActivity extends Activity {
 
         initMetronomeInterval();
         initMetronomeMetric() ;
+
+        addPrefButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupAddPreference(v);
+            }
+        });
     }
 
     /**
@@ -160,6 +175,46 @@ public class MetronomeActivity extends Activity {
         resetButton.setEnabled(false);
         metroTimer.cancel();
         metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+    }
+
+    /**
+     * Method : show popup to add preference
+     * @param v
+     */
+    private void showPopupAddPreference(View v){
+        //
+        LayoutInflater layoutInflater = LayoutInflater.from(MetronomeActivity.this);
+        View showView = layoutInflater.inflate(R.layout.activity_addpreference, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MetronomeActivity.this);
+        alertDialogBuilder.setView(showView);
+
+        final EditText writePreference = showView.findViewById(R.id.writePreferenceText);
+
+        // if clicked on "OK"
+        alertDialogBuilder.setCancelable(false).setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                System.out.println("text preference : "+writePreference.getText());
+                System.out.println("rythm value : "+values[np.getValue()]);
+                System.out.println("metric value : "+getMetricValue(metrics[npMetric.getValue()]));
+
+                SharedPreferences.Editor editPref = getSharedPreferences("myPreference", MODE_PRIVATE).edit();
+                editPref.putString("idName", String.valueOf(writePreference.getText()));
+                editPref.putInt("idRythm", Integer.parseInt(values[np.getValue()]));
+                editPref.putInt("idMetric", getMetricValue(metrics[npMetric.getValue()]));
+                editPref.apply();
+                Toast.makeText(MetronomeActivity.this,writePreference.getText()+" : SAVED",Toast.LENGTH_LONG).show();
+            }
+        // if clicked on "cancel"
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        // create an alert dialog
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
     }
 
     /**

@@ -68,4 +68,26 @@
         android:descendantFocusability="blocksDescendants"
         android:solidColor="@android:color/white" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:id="@+id/spinnerChoosePreference"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/spinnerChoosePreference"
+        android:text="@string/selectPreference"
+        android:id="@+id/buttonSelectPreference"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/buttonSelectPreference"
+        android:text="@string/addPreference"
+        android:onClick="showPopupAddPreference"
+        android:id="@+id/buttonAddPreference"/>
+
 </RelativeLayout>
