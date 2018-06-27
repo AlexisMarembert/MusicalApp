@@ -93,11 +93,11 @@ public class MetronomeActivity extends Activity {
     //Play a Strong beat or a Weak depending on the given metric
     private int playTone(int counter ,int metric ,ToneGenerator toneGen){
         if(counter % metric == 0) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 75);
             return 1 ;
         }
         else {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 150);
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 75);
             return 2 ;
         }
     }
@@ -140,16 +140,17 @@ public class MetronomeActivity extends Activity {
                             if(alt) {
                                 int type = playTone(metricCpt, metricValue, toneGen);
                                 changeColor(type);
+                                metricCpt = ++metricCpt;
                             }
                             else {
                                 changeColor(0);
                             }
                             alt = ! alt ;
+                            if(metricCpt>metricValue) metricCpt=1 ;
                         }
                     });
 
-                    metricCpt = ++metricCpt;
-                    if(metricCpt>metricValue) metricCpt=1 ;
+
                 }
             }, new Date(), (int) waitMetronome);
         } else {
@@ -159,7 +160,6 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : reset metronome configuration
-     * @param v
      */
     public void resetConfigMetronome(View v) {
         metroTimer.cancel();
@@ -169,7 +169,6 @@ public class MetronomeActivity extends Activity {
     /**
      * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"
-     * @param v
      */
     public void goToMain(View v) {
         finish();
