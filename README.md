@@ -37,17 +37,16 @@ option : `$ git config credential.helper store`
   - [ ] settings button
   - [x] exit button
   
-- [ ] **Metronome page**
+- [x] **Metronome page**
   - [x] visualize metronome
-  - [ ] sound rhythm
+  - [x] sound rhythm
   - [x] button set interval
   - [x] button reset interval
   - [x] button for back to main
   
 - [ ] **Instrument chords page**
-  - [ ] select instrument
   - [ ] default chords settings
-  - [ ] input sound
+  - [x] input sound
   - [ ] informations to check if we are in the rhythm
   - [ ] button settings to create chords
   - [x] button for back to main
@@ -60,7 +59,7 @@ option : `$ git config credential.helper store`
 - [ ] **Additionals options**
   - [ ] drop down menu while menu page exited
   - [x] french and english edition
-  - [ ] ask for micro habilitation
+  - [x] ask for micro habilitation
 
 ---
 
