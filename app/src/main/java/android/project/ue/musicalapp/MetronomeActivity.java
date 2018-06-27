@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.net.http.SslCertificate;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,6 +42,10 @@ public class MetronomeActivity extends Activity {
     private int metricCpt;
     private ArrayAdapter<String> arrayPref;
     private ArrayList<String> aList;
+    private EditText writePreference;
+    private AlertDialog.Builder alertDialogBuilder;
+    private LayoutInflater layoutInflater;
+    private View showView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,29 +73,6 @@ public class MetronomeActivity extends Activity {
                 showPopupAddPreference(v);
             }
         });
-    }
-
-    /**
-     * Method : initialize spinner list
-     */
-    public void initSpinList() {
-        spin = findViewById(R.id.spinnerChoosePreference);
-        aList = new ArrayList<String>(Arrays.asList(new String[]{""}));
-        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
-        spin.setAdapter(arrayPref);
-    }
-
-    /**
-     * Method : update spinner list
-     * @param prefToAdd
-     */
-    public void updateSpinList(String prefToAdd) {
-        System.out.println("begin : "+prefToAdd);
-        aList.add(prefToAdd);
-        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
-        System.out.println("before : "+prefToAdd);
-        spin.setAdapter(arrayPref);
-        System.out.println("after : "+prefToAdd);
     }
 
     /**
@@ -136,7 +119,9 @@ public class MetronomeActivity extends Activity {
         return -1 ;
     }
 
-    //Play a Strong beat or a Weak depending on the given metric
+    /**
+     * Method : play a Strong beat or a Weak depending on the given metric
+     */
     private int playTone(int counter ,int metric ,ToneGenerator toneGen){
            if(counter % metric == 0) {
                toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
@@ -147,6 +132,10 @@ public class MetronomeActivity extends Activity {
            }
     }
 
+    /**
+     * Method : change BIP button color
+     * @param typeOfTone
+     */
     public void changeColor(int typeOfTone){
         if(typeOfTone==0) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_off);
@@ -218,18 +207,53 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
+     * Method : initialize spinner list
+     */
+    public void initSpinList() {
+
+        spin = findViewById(R.id.spinnerChoosePreference);
+        aList = new ArrayList<String>(Arrays.asList(new String[]{""}));
+        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
+        spin.setAdapter(arrayPref);
+    }
+
+    /**
+     * Method : update spinner list
+     * @param prefToAdd
+     */
+    public void updateSpinList(String prefToAdd) {
+        aList.add(prefToAdd);
+        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
+        spin.setAdapter(arrayPref);
+    }
+
+    /**
+     * Method :
+     */
+
+    /**
+     * Method : select preference from spinner list
+     * @param v
+     */
+    public void selectPreference(View v) {
+        System.out.println("directory "+ Environment.getDataDirectory());
+        String spinnerKey = spin.getSelectedItem().toString();
+        System.out.println(spinnerKey);
+        System.out.println("rythm : "+getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0));
+        System.out.println("metric "+getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
+    }
+    /**
      * Method : show popup to add preference
      * @param v
      */
     private void showPopupAddPreference(View v){
-        //
-        LayoutInflater layoutInflater = LayoutInflater.from(MetronomeActivity.this);
-        View showView = layoutInflater.inflate(R.layout.activity_addpreference, null);
+        layoutInflater = LayoutInflater.from(MetronomeActivity.this);
+        showView = layoutInflater.inflate(R.layout.activity_addpreference, null);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MetronomeActivity.this);
+        alertDialogBuilder = new AlertDialog.Builder(MetronomeActivity.this);
         alertDialogBuilder.setView(showView);
 
-        final EditText writePreference = showView.findViewById(R.id.writePreferenceText);
+        writePreference = showView.findViewById(R.id.writePreferenceText);
 
         // if clicked on "OK"
         alertDialogBuilder.setCancelable(false).setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -237,14 +261,16 @@ public class MetronomeActivity extends Activity {
                 System.out.println("text preference : "+writePreference.getText());
                 System.out.println("rythm value : "+values[np.getValue()]);
                 System.out.println("metric value : "+getMetricValue(metrics[npMetric.getValue()]));
+
                 // add in spinner list
                 updateSpinList(String.valueOf(writePreference.getText()));
 
-                SharedPreferences.Editor editPref = getSharedPreferences("myPreference", MODE_PRIVATE).edit();
-                editPref.putString("idName", String.valueOf(writePreference.getText()));
-                editPref.putInt("idRythm", Integer.parseInt(values[np.getValue()]));
-                editPref.putInt("idMetric", getMetricValue(metrics[npMetric.getValue()]));
-                editPref.apply();
+                // add preference
+                getApplicationContext().getSharedPreferences(String.valueOf(writePreference.getText()), MODE_PRIVATE)
+                        .edit()
+                        .putInt("idRythm", Integer.parseInt(values[np.getValue()]))
+                        .putInt("idMetric", getMetricValue(metrics[npMetric.getValue()]))
+                        .apply();
                 Toast.makeText(MetronomeActivity.this,writePreference.getText()+" : SAVED",Toast.LENGTH_LONG).show();
             }
         // if clicked on "cancel"

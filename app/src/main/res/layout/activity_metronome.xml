@@ -80,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/spinnerChoosePreference"
         android:text="@string/selectPreference"
+        android:onClick="selectPreference"
         android:id="@+id/buttonSelectPreference"/>
 
     <Button
