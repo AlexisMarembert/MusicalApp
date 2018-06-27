@@ -9,11 +9,15 @@ import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +28,7 @@ public class MetronomeActivity extends Activity {
     private Button okButton;
     private Button resetButton;
     private Button addPrefButton;
+    private Spinner spin;
     private Timer metroTimer;
     private boolean isRed = true;
     private NumberPicker np;
@@ -33,6 +38,8 @@ public class MetronomeActivity extends Activity {
     private String [] values = new String [maxValues - minValues];
     private String [] metrics = {"1/4" , "2/4" , "3/4" , "4/4"} ;
     private int metricCpt;
+    private ArrayAdapter<String> arrayPref;
+    private ArrayList<String> aList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,7 @@ public class MetronomeActivity extends Activity {
 
         initMetronomeInterval();
         initMetronomeMetric() ;
+        initSpinList();
 
         addPrefButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +67,29 @@ public class MetronomeActivity extends Activity {
                 showPopupAddPreference(v);
             }
         });
+    }
+
+    /**
+     * Method : initialize spinner list
+     */
+    public void initSpinList() {
+        spin = findViewById(R.id.spinnerChoosePreference);
+        aList = new ArrayList<String>(Arrays.asList(new String[]{""}));
+        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
+        spin.setAdapter(arrayPref);
+    }
+
+    /**
+     * Method : update spinner list
+     * @param prefToAdd
+     */
+    public void updateSpinList(String prefToAdd) {
+        System.out.println("begin : "+prefToAdd);
+        aList.add(prefToAdd);
+        arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
+        System.out.println("before : "+prefToAdd);
+        spin.setAdapter(arrayPref);
+        System.out.println("after : "+prefToAdd);
     }
 
     /**
@@ -197,6 +228,8 @@ public class MetronomeActivity extends Activity {
                 System.out.println("text preference : "+writePreference.getText());
                 System.out.println("rythm value : "+values[np.getValue()]);
                 System.out.println("metric value : "+getMetricValue(metrics[npMetric.getValue()]));
+                // add in spinner list
+                updateSpinList(String.valueOf(writePreference.getText()));
 
                 SharedPreferences.Editor editPref = getSharedPreferences("myPreference", MODE_PRIVATE).edit();
                 editPref.putString("idName", String.valueOf(writePreference.getText()));
