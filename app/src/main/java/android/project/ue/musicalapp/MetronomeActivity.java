@@ -17,7 +17,6 @@ public class MetronomeActivity extends Activity {
 
     private Button metroButton;
     private Timer metroTimer;
-    private boolean isRed = true;
     private NumberPicker np;
     private NumberPicker npMetric;
     private int minValues = 30;
@@ -56,9 +55,7 @@ public class MetronomeActivity extends Activity {
         super.onResume();
     }
 
-    /**
-     *
-     */
+
     public void setValues() {
         int j = values.length;
         for (int i = 0; i < j; i++) {
@@ -108,16 +105,13 @@ public class MetronomeActivity extends Activity {
     public void changeColor(int typeOfTone){
         if(typeOfTone==0) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-            System.out.println("Grey") ;
         }
         if(typeOfTone==1) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_strong);
-            System.out.println("Red") ;
         }
 
         if(typeOfTone== 2) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_weak);
-            System.out.println("Green") ;
         }
 
     }
@@ -132,19 +126,25 @@ public class MetronomeActivity extends Activity {
         metroTimer  = new Timer();
 
         final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
-        double waitMetronome = 60000 / Double.parseDouble(values[np.getValue()]);
+        double waitMetronome = 30000 / Double.parseDouble(values[np.getValue()]);
         final int metricValue = getMetricValue(metrics[npMetric.getValue()]) ;
 
         if (waitMetronome > 0.0) {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
+                boolean alt = true ;
                 @Override
                 public void run() {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            int type = playTone(metricCpt, metricValue, toneGen);
-                            changeColor(type);
-                            changeColor(0);
+                            if(alt) {
+                                int type = playTone(metricCpt, metricValue, toneGen);
+                                changeColor(type);
+                            }
+                            else {
+                                changeColor(0);
+                            }
+                            alt = ! alt ;
                         }
                     });
 
