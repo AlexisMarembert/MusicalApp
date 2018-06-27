@@ -138,14 +138,13 @@ public class MetronomeActivity extends Activity {
 
     //Play a Strong beat or a Weak depending on the given metric
     private int playTone(int counter ,int metric ,ToneGenerator toneGen){
-        if(counter % metric == 0) {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-            return 1 ;
-        }
-        else {
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 150);
-            return 2 ;
-        }
+           if(counter % metric == 0) {
+               toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+               return 1 ;
+           } else {
+               toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 150);
+               return 2 ;
+           }
     }
 
     public void changeColor(int typeOfTone){
@@ -157,20 +156,20 @@ public class MetronomeActivity extends Activity {
             metroButton.setBackgroundResource(R.drawable.button_metronome_strong);
             System.out.println("Red") ;
         }
-
         if(typeOfTone== 2) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_weak);
             System.out.println("Green") ;
         }
-
     }
-
 
     /**
      * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
+        okButton.setEnabled(false);
+        resetButton.setEnabled(true);
+
         metroTimer.cancel() ;
         metroTimer  = new Timer();
 
