@@ -1,16 +1,11 @@
 package android.project.ue.musicalapp;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -21,9 +16,6 @@ import java.util.TimerTask;
 public class MetronomeActivity extends Activity {
 
     private Button metroButton;
-    private Button okButton;
-    private Button resetButton;
-    private Button addPrefButton;
     private Timer metroTimer;
     private boolean isRed = true;
     private NumberPicker np;
@@ -38,31 +30,34 @@ public class MetronomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         metricCpt = 0;
+        NumberPicker.OnScrollListener scrollListener = new NumberPicker.OnScrollListener() {
+            @Override
+            public void onScrollStateChange(NumberPicker view, int scrollState) {
+                Toast.makeText(MetronomeActivity.this,"selected number "+scrollState, Toast.LENGTH_SHORT);
 
+            }
+        };
+       // np.setOnScrollListener(scrollListener);
+        //npMetric.setOnScrollListener((scrollListener));
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
-        okButton = findViewById(R.id.configMetronome);
-        resetButton = findViewById(R.id.resetConfigMetronome);
-        addPrefButton = findViewById(R.id.buttonAddPreference);
-
-        okButton.setEnabled(true);
-        resetButton.setEnabled(false);
-
         metroTimer  = new Timer();
-
         initMetronomeInterval();
         initMetronomeMetric() ;
+    }
 
-        addPrefButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupAddPreference(v);
-            }
-        });
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
-     * Method : set metronome interval values
+     *
      */
     public void setValues() {
         int j = values.length;
@@ -72,7 +67,7 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
-     * Method : initialise metronome interval list
+     *  Method : initialise metronome interval list
      */
     public void initMetronomeInterval () {
         setValues();
@@ -82,21 +77,14 @@ public class MetronomeActivity extends Activity {
         np.setMaxValue(values.length - 1);
     }
 
-    /**
-     * Method : initialize metronome metric
-     */
     public void initMetronomeMetric () {
+
         npMetric= findViewById(R.id.selectMetronomeMetric);
         npMetric.setDisplayedValues(metrics);
         npMetric.setMinValue(0);
         npMetric.setMaxValue(metrics.length - 1);
     }
 
-    /**
-     * Method : get metric value
-     * @param stringValue
-     * @return case or error
-     */
     public static int getMetricValue(String stringValue){
         if(stringValue.equals("1/4")) return 1 ;
         if(stringValue.equals("2/4")) return 2 ;
@@ -105,29 +93,42 @@ public class MetronomeActivity extends Activity {
         return -1 ;
     }
 
-    /**
-     * Method : Play a Strong beat or a Weak depending on the given metric
-     * @param counter
-     * @param metric
-     * @param toneGen
-     */
-    private void playTone(int counter ,int metric ,ToneGenerator toneGen){
-        if(counter % metric == 0)
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP,150);
-        else
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT,150);
+    //Play a Strong beat or a Weak depending on the given metric
+    private int playTone(int counter ,int metric ,ToneGenerator toneGen){
+        if(counter % metric == 0) {
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+            return 1 ;
+        }
+        else {
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 150);
+            return 2 ;
+        }
+    }
+
+    public void changeColor(int typeOfTone){
+        if(typeOfTone==0) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+            System.out.println("Grey") ;
+        }
+        if(typeOfTone==1) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_strong);
+            System.out.println("Red") ;
+        }
+
+        if(typeOfTone== 2) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_weak);
+            System.out.println("Green") ;
+        }
+
     }
 
 
     /**
-     * Method : called when button "configMetronome" is pressed
+     * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
-        okButton.setEnabled(false);
-        resetButton.setEnabled(true);
-
-        metroTimer.cancel();
+        metroTimer.cancel() ;
         metroTimer  = new Timer();
 
         final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
@@ -138,27 +139,17 @@ public class MetronomeActivity extends Activity {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    if (isRed) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                metroButton.setBackgroundResource(R.drawable.button_metronome_on);
-                                playTone(metricCpt, metricValue,toneGen) ;
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-                                playTone(metricCpt, metricValue,toneGen) ;
-                            }
-                        });
-                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int type = playTone(metricCpt, metricValue, toneGen);
+                            changeColor(type);
+                            changeColor(0);
+                        }
+                    });
 
                     metricCpt = ++metricCpt;
                     if(metricCpt>metricValue) metricCpt=1 ;
-                    isRed = !isRed;
                 }
             }, new Date(), (int) waitMetronome);
         } else {
@@ -171,50 +162,8 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void resetConfigMetronome(View v) {
-        okButton.setEnabled(true);
-        resetButton.setEnabled(false);
         metroTimer.cancel();
         metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-    }
-
-    /**
-     * Method : show popup to add preference
-     * @param v
-     */
-    private void showPopupAddPreference(View v){
-        //
-        LayoutInflater layoutInflater = LayoutInflater.from(MetronomeActivity.this);
-        View showView = layoutInflater.inflate(R.layout.activity_addpreference, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MetronomeActivity.this);
-        alertDialogBuilder.setView(showView);
-
-        final EditText writePreference = showView.findViewById(R.id.writePreferenceText);
-
-        // if clicked on "OK"
-        alertDialogBuilder.setCancelable(false).setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                System.out.println("text preference : "+writePreference.getText());
-                System.out.println("rythm value : "+values[np.getValue()]);
-                System.out.println("metric value : "+getMetricValue(metrics[npMetric.getValue()]));
-
-                SharedPreferences.Editor editPref = getSharedPreferences("myPreference", MODE_PRIVATE).edit();
-                editPref.putString("idName", String.valueOf(writePreference.getText()));
-                editPref.putInt("idRythm", Integer.parseInt(values[np.getValue()]));
-                editPref.putInt("idMetric", getMetricValue(metrics[npMetric.getValue()]));
-                editPref.apply();
-                Toast.makeText(MetronomeActivity.this,writePreference.getText()+" : SAVED",Toast.LENGTH_LONG).show();
-            }
-        // if clicked on "cancel"
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-
-        // create an alert dialog
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
     }
 
     /**
@@ -223,7 +172,6 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void goToMain(View v) {
-        resetConfigMetronome(v);
         finish();
     }
 
