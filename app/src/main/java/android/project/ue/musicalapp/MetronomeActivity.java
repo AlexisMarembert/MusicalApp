@@ -136,29 +136,42 @@ public class MetronomeActivity extends Activity {
         return -1 ;
     }
 
-    /**
-     * Method : Play a Strong beat or a Weak depending on the given metric
-     * @param counter
-     * @param metric
-     * @param toneGen
-     */
-    private void playTone(int counter ,int metric ,ToneGenerator toneGen){
-        if(counter % metric == 0)
-            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP,150);
-        else
-            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT,150);
+    //Play a Strong beat or a Weak depending on the given metric
+    private int playTone(int counter ,int metric ,ToneGenerator toneGen){
+        if(counter % metric == 0) {
+            toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+            return 1 ;
+        }
+        else {
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_INTERCEPT, 150);
+            return 2 ;
+        }
+    }
+
+    public void changeColor(int typeOfTone){
+        if(typeOfTone==0) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+            System.out.println("Grey") ;
+        }
+        if(typeOfTone==1) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_strong);
+            System.out.println("Red") ;
+        }
+
+        if(typeOfTone== 2) {
+            metroButton.setBackgroundResource(R.drawable.button_metronome_weak);
+            System.out.println("Green") ;
+        }
+
     }
 
 
     /**
-     * Method : called when button "configMetronome" is pressed
+     * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
-        okButton.setEnabled(false);
-        resetButton.setEnabled(true);
-
-        metroTimer.cancel();
+        metroTimer.cancel() ;
         metroTimer  = new Timer();
 
         final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
@@ -169,23 +182,14 @@ public class MetronomeActivity extends Activity {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    if (isRed) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                metroButton.setBackgroundResource(R.drawable.button_metronome_on);
-                                playTone(metricCpt, metricValue,toneGen) ;
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-                                playTone(metricCpt, metricValue,toneGen) ;
-                            }
-                        });
-                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            int type = playTone(metricCpt, metricValue, toneGen);
+                            changeColor(type);
+                            changeColor(0);
+                        }
+                    });
 
                     metricCpt = ++metricCpt;
                     if(metricCpt>metricValue) metricCpt=1 ;
