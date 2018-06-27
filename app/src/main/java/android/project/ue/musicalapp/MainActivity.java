@@ -34,16 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method called when button "goToVisualize" is pressed
-     * Then start activity "VisualizeActivity"
-     * @param v
-     */
-    public void goToVisualize(View v) {
-        Intent myIntent = new Intent(this, VisualizeActivity.class);
-        startActivity(myIntent);
-    }
-
-    /**
      * Method called when button "exit" is pressed
      * Then close application
      * @param v

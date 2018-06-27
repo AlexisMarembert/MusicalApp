@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/music_background">
+    android:background="@drawable/metronome">
 
     <Button
         android:layout_width="wrap_content"
@@ -24,14 +24,6 @@
         android:onClick="goToInstrument"
         android:text="@string/instrument_chords"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/goToInstrument"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/goToVisualize"
-        android:onClick="goToVisualize"
-        android:text="@string/visualize_music"/>
 
     <Button
         android:layout_width="wrap_content"
