@@ -16,6 +16,8 @@ import java.util.TimerTask;
 public class MetronomeActivity extends Activity {
 
     private Button metroButton;
+    private Button okButton;
+    private Button resetButton;
     private Timer metroTimer;
     private boolean isRed = true;
     private NumberPicker np;
@@ -37,11 +39,18 @@ public class MetronomeActivity extends Activity {
 
             }
         };
-       // np.setOnScrollListener(scrollListener);
+        //np.setOnScrollListener(scrollListener);
         //npMetric.setOnScrollListener((scrollListener));
         setContentView(R.layout.activity_metronome);
         metroButton = findViewById(R.id.metronomeButton);
+        okButton = findViewById(R.id.configMetronome);
+        resetButton = findViewById(R.id.resetConfigMetronome);
+
+        okButton.setEnabled(true);
+        resetButton.setEnabled(false);
+
         metroTimer  = new Timer();
+
         initMetronomeInterval();
         initMetronomeMetric() ;
     }
@@ -57,7 +66,7 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
-     *
+     * Method : set metronome interval values
      */
     public void setValues() {
         int j = values.length;
@@ -67,7 +76,7 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
-     *  Method : initialise metronome interval list
+     * Method : initialise metronome interval list
      */
     public void initMetronomeInterval () {
         setValues();
@@ -77,14 +86,21 @@ public class MetronomeActivity extends Activity {
         np.setMaxValue(values.length - 1);
     }
 
+    /**
+     * Method : initialize metronome metric
+     */
     public void initMetronomeMetric () {
-
         npMetric= findViewById(R.id.selectMetronomeMetric);
         npMetric.setDisplayedValues(metrics);
         npMetric.setMinValue(0);
         npMetric.setMaxValue(metrics.length - 1);
     }
 
+    /**
+     * Method : get metric value
+     * @param stringValue
+     * @return case or error
+     */
     public static int getMetricValue(String stringValue){
         if(stringValue.equals("1/4")) return 1 ;
         if(stringValue.equals("2/4")) return 2 ;
@@ -93,7 +109,12 @@ public class MetronomeActivity extends Activity {
         return -1 ;
     }
 
-    //Play a Strong beat or a Weak depending on the given metric
+    /**
+     * Method : Play a Strong beat or a Weak depending on the given metric
+     * @param counter
+     * @param metric
+     * @param toneGen
+     */
     private void playTone(int counter ,int metric ,ToneGenerator toneGen){
         if(counter % metric == 0)
             toneGen.startTone(ToneGenerator.TONE_CDMA_PIP,150);
@@ -103,10 +124,13 @@ public class MetronomeActivity extends Activity {
 
 
     /**
-     * Method called when button "configMetronome" is pressed
+     * Method : called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
+        okButton.setEnabled(false);
+        resetButton.setEnabled(true);
+
         metroTimer.cancel();
         metroTimer  = new Timer();
 
@@ -151,6 +175,8 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void resetConfigMetronome(View v) {
+        okButton.setEnabled(true);
+        resetButton.setEnabled(false);
         metroTimer.cancel();
         metroButton.setBackgroundResource(R.drawable.button_metronome_off);
     }
@@ -161,6 +187,7 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void goToMain(View v) {
+        resetConfigMetronome(v);
         finish();
     }
 
