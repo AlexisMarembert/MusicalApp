@@ -167,6 +167,9 @@ public class MetronomeActivity extends Activity {
      * Then update integer "waitMetronome" and call method "startMetronome"
      */
     public void configMetronome(View v) {
+        okButton.setEnabled(false);
+        resetButton.setEnabled(true);
+
         metroTimer.cancel() ;
         metroTimer  = new Timer();
 
