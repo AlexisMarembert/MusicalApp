@@ -1,23 +1,23 @@
 <resources>
     <string name="app_name">MusicalApp</string>
     <string name="metronome">Metronome</string>
-    <string name="instrument_chords">Instrument Chords</string>
+    <string name="instrument_chords">Guitar Tuner</string>
     <string name="visualize_music">Visualize Music</string>
     <string name="exit">Exit</string>
-    <string name="back_menu">Back Menu</string>
+    <string name="back_menu">Back</string>
     <string name="bip">BIP</string>
     <string name="ok">OK</string>
-    <string name="reset">reset</string>
-    <string name="record">record</string>
-    <string name="stop">stop</string>
-    <string name="play">play</string>
-    <string name="stopRecord">stop record</string>
+    <string name="reset">Reset</string>
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="stopRecord">Stop Recording</string>
     <string name="E">E</string>
     <string name="A">A</string>
     <string name="D">D</string>
     <string name="G">G</string>
     <string name="B">B</string>
-    <string name="addPreference">add preference</string>
-    <string name="selectPreference">select preference</string>
+    <string name="addPreference">Add preference</string>
+    <string name="selectPreference">Select preference</string>
     <string name="enter_preference_name">Enter preference name ...</string>
 </resources>

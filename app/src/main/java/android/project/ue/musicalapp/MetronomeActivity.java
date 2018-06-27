@@ -197,8 +197,6 @@ public class MetronomeActivity extends Activity {
                             if(metricCpt>metricValue) metricCpt=1 ;
                         }
                     });
-
-
                 }
             }, new Date(), (int) waitMetronome);
         } else {

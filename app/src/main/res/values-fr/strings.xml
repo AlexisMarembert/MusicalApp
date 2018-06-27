@@ -1,20 +1,26 @@
+
+
 <resources>
-    <string name="app_name">MusicalApp</string>
-    <string name="metronome">Metronome</string>
-    <string name="instrument_chords">Accordeur d\'Instruments</string>
-    <string name="visualize_music">Visualiser la Musique</string>
-    <string name="exit">Quitter</string>
-    <string name="back_menu">Retour Menu</string>
-    <string name="bip">BIP</string>
-    <string name="ok">OK</string>
-    <string name="reset">recommencer</string>
-    <string name="record">enregistrer</string>
-    <string name="stop">stop</string>
-    <string name="play">jouer</string>
-    <string name="stopRecord">stopper enregistrement</string>
-    <string name="E">Mi</string>
-    <string name="A">La</string>
-    <string name="D">RF</string>
-    <string name="G">Sol</string>
-    <string name="B">Si</string>
+<string name="app_name">MusicalApp</string>
+<string name="metronome">Metronome</string>
+<string name="instrument_chords">Accordeur de Guitare</string>
+<string name="visualize_music">Visualiser la musique  </string>
+<string name="exit">Quitter</string>
+<string name="back_menu">Retour</string>
+<string name="bip">BIP</string>
+<string name="ok">OK</string>
+<string name="reset">Recommencer</string>
+<string name="record">Enregistrer</string>
+<string name="stop">Arrêter</string>
+<string name="play">Jouer</string>
+<string name="stopRecord">Arrêter L\'enregistrement</string>
+<string name="E">Mi</string>
+<string name="A">La</string>
+<string name="D">Re</string>
+<string name="G">Sol</string>
+<string name="B">Si</string>
+<string name="addPreference">Ajouter les préférences</string>
+<string name="selectPreference">Sélectionner une préférence</string>
+<string name="enter_preference_name">Entrer un nom pour la préférence ...</string>
 </resources>
+
