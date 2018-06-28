@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -125,6 +126,10 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : play a Strong beat or a Weak depending on the given metric
+     * @param counter
+     * @param metric
+     * @param toneGen
+     * @return
      */
     private int playTone(int counter ,int metric ,ToneGenerator toneGen){
            if(counter % metric == 0) {
@@ -155,6 +160,7 @@ public class MetronomeActivity extends Activity {
     /**
      * Method called when button "configMetronome" is pressed
      * Then update integer "waitMetronome" and call method "startMetronome"
+     * @param v
      */
     public void configMetronome(View v) {
         okButton.setEnabled(false);
@@ -165,7 +171,7 @@ public class MetronomeActivity extends Activity {
 
         final ToneGenerator toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, ToneGenerator.MAX_VOLUME);
         double waitMetronome = 30000 / Double.parseDouble(values[np.getValue()]);
-        final int metricValue = getMetricValue(metrics[npMetric.getValue()]) ;
+        final int metricValue = getMetricValue(metrics[npMetric.getValue()]);
 
         if (waitMetronome > 0.0) {
             metroTimer.scheduleAtFixedRate(new TimerTask() {
@@ -244,8 +250,8 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void selectPreference(View v) {
-        np.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0) - minValues);
-        npMetric.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
+        np.setValue(getApplicationContext().getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0) - minValues);
+        npMetric.setValue(getApplicationContext().getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
 
         resetConfigMetronome(v);
         configMetronome(v);
@@ -274,7 +280,7 @@ public class MetronomeActivity extends Activity {
                 getApplicationContext().getSharedPreferences(String.valueOf(writePreference.getText()), MODE_PRIVATE)
                         .edit()
                         .putInt("idRythm", Integer.parseInt(values[np.getValue()]))
-                        .putInt("idMetric", getMetricValue(metrics[npMetric.getValue()]))
+                        .putInt("idMetric", npMetric.getValue())
                         .apply();
                 Toast.makeText(MetronomeActivity.this,writePreference.getText()+" : SAVED",Toast.LENGTH_LONG).show();
             }
@@ -295,6 +301,7 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : Remove preference
+     * @param v
      */
     public void removePreference(View v) {
         // remove preference
