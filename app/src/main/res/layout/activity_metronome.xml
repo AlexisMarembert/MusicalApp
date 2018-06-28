@@ -68,17 +68,11 @@
         android:descendantFocusability="blocksDescendants"
         android:solidColor="@android:color/white" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        android:id="@+id/spinnerChoosePreference"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/spinnerChoosePreference"
+        android:layout_alignParentRight="true"
         android:text="@string/selectPreference"
         android:onClick="selectPreference"
         android:id="@+id/buttonSelectPreference"/>
@@ -86,9 +80,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/buttonSelectPreference"
+        android:layout_alignParentLeft="true"
         android:text="@string/addPreference"
         android:onClick="showPopupAddPreference"
         android:id="@+id/buttonAddPreference"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/addPreference"
+        android:onClick="showPopupRemovePreference"
+        android:id="@+id/buttonRemovePreference"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonSelectPreference"
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:id="@+id/spinnerChoosePreference"/>
 
 </RelativeLayout>

@@ -288,6 +288,13 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
+     * Method : Remove preference
+     */
+    public void showPopupRemovePreference(View view) {
+
+    }
+
+    /**
      * Method called when button "goToMain" is pressed
      * Then start activity "MainActivity"
      * @param v
@@ -296,5 +303,4 @@ public class MetronomeActivity extends Activity {
         resetConfigMetronome(v);
         finish();
     }
-
 }
