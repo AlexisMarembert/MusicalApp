@@ -9,6 +9,7 @@ import android.media.ToneGenerator;
 import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,9 +19,13 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,7 +46,7 @@ public class MetronomeActivity extends Activity {
     private String [] metrics = {"1/4" , "2/4" , "3/4" , "4/4"} ;
     private int metricCpt;
     private ArrayAdapter<String> arrayPref;
-    private ArrayList<String> aList;
+    private List<String> aList;
     private EditText writePreference;
     private AlertDialog.Builder alertDialogBuilder;
     private LayoutInflater layoutInflater;
@@ -139,15 +144,12 @@ public class MetronomeActivity extends Activity {
     public void changeColor(int typeOfTone){
         if(typeOfTone==0) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_off);
-            System.out.println("Grey") ;
         }
         if(typeOfTone==1) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_strong);
-            System.out.println("Red") ;
         }
         if(typeOfTone== 2) {
             metroButton.setBackgroundResource(R.drawable.button_metronome_weak);
-            System.out.println("Green") ;
         }
     }
 
@@ -208,9 +210,15 @@ public class MetronomeActivity extends Activity {
      * Method : initialize spinner list
      */
     public void initSpinList() {
-
         spin = findViewById(R.id.spinnerChoosePreference);
-        aList = new ArrayList<String>(Arrays.asList(new String[]{""}));
+        File[] files = new File("/data/data/android.project.ue.musicalapp/shared_prefs").listFiles();
+        aList = new ArrayList<String>();
+
+        // list all files in shared_prefs folder
+        for (File f : files) {
+            aList.add(f.getName().toString().substring(0,f.getName().length() - 4));
+        }
+
         arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
         spin.setAdapter(arrayPref);
     }
@@ -226,19 +234,19 @@ public class MetronomeActivity extends Activity {
     }
 
     /**
-     * Method :
-     */
-
-    /**
      * Method : select preference from spinner list
      * @param v
      */
     public void selectPreference(View v) {
         System.out.println("directory "+ Environment.getDataDirectory());
         String spinnerKey = spin.getSelectedItem().toString();
-        System.out.println(spinnerKey);
-        System.out.println("rythm : "+getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0));
-        System.out.println("metric "+getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
+
+        np.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0) - minValues);
+        npMetric.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
+
+        resetConfigMetronome(v);
+        configMetronome(v);
+
     }
     /**
      * Method : show popup to add preference
@@ -256,10 +264,6 @@ public class MetronomeActivity extends Activity {
         // if clicked on "OK"
         alertDialogBuilder.setCancelable(false).setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                System.out.println("text preference : "+writePreference.getText());
-                System.out.println("rythm value : "+values[np.getValue()]);
-                System.out.println("metric value : "+getMetricValue(metrics[npMetric.getValue()]));
-
                 // add in spinner list
                 updateSpinList(String.valueOf(writePreference.getText()));
 
