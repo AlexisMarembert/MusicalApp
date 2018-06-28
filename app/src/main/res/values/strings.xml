@@ -20,4 +20,5 @@
     <string name="addPreference">Add preference</string>
     <string name="selectPreference">Select preference</string>
     <string name="enter_preference_name">Enter preference name ...</string>
+    <string name="removePreference">remove preference</string>
 </resources>

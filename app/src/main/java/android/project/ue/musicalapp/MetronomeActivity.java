@@ -35,6 +35,7 @@ public class MetronomeActivity extends Activity {
     private Button okButton;
     private Button resetButton;
     private Button addPrefButton;
+    private Button removePrefButton;
     private Spinner spin;
     private Timer metroTimer;
     private boolean isRed = true;
@@ -51,6 +52,7 @@ public class MetronomeActivity extends Activity {
     private AlertDialog.Builder alertDialogBuilder;
     private LayoutInflater layoutInflater;
     private View showView;
+    private String pathToPrefs = "/data/data/android.project.ue.musicalapp/shared_prefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class MetronomeActivity extends Activity {
         okButton = findViewById(R.id.configMetronome);
         resetButton = findViewById(R.id.resetConfigMetronome);
         addPrefButton = findViewById(R.id.buttonAddPreference);
+        removePrefButton = findViewById(R.id.buttonRemovePreference);
 
         okButton.setEnabled(true);
         resetButton.setEnabled(false);
@@ -211,7 +214,7 @@ public class MetronomeActivity extends Activity {
      */
     public void initSpinList() {
         spin = findViewById(R.id.spinnerChoosePreference);
-        File[] files = new File("/data/data/android.project.ue.musicalapp/shared_prefs").listFiles();
+        File[] files = new File(pathToPrefs).listFiles();
         aList = new ArrayList<String>();
 
         // list all files in shared_prefs folder
@@ -289,9 +292,16 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : Remove preference
+     * TODO
      */
-    public void showPopupRemovePreference(View view) {
+    public void removePreference(View v) {
+        // remove preference
+        File fileToRemove = new File(pathToPrefs+"/"+spin.getSelectedItem().toString()+".xml");
+        fileToRemove.delete();
+        Toast.makeText(MetronomeActivity.this,spin.getSelectedItem().toString()+" : REMOVED",Toast.LENGTH_LONG).show();
 
+        // update spin list
+        initSpinList();
     }
 
     /**

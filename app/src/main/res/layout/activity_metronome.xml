@@ -88,13 +88,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/addPreference"
-        android:onClick="showPopupRemovePreference"
+        android:text="@string/removePreference"
+        android:onClick="removePreference"
         android:id="@+id/buttonRemovePreference"/>
 
-    <Spinner
+        <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonSelectPreference"
