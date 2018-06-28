@@ -3,13 +3,10 @@ package android.project.ue.musicalapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,14 +15,10 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,7 +32,6 @@ public class MetronomeActivity extends Activity {
     private Button selectPrefButton;
     private Spinner spin;
     private Timer metroTimer;
-    private boolean isRed = true;
     private NumberPicker np;
     private NumberPicker npMetric;
     private int minValues = 30;
@@ -78,8 +70,6 @@ public class MetronomeActivity extends Activity {
         initMetronomeInterval();
         initMetronomeMetric() ;
         initSpinList();
-
-        System.out.println(spin.getSelectedItem() != null+" -----------------------------------------------------------------------------");
 
         addPrefButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,16 +244,13 @@ public class MetronomeActivity extends Activity {
      * @param v
      */
     public void selectPreference(View v) {
-        System.out.println("directory "+ Environment.getDataDirectory());
-        String spinnerKey = spin.getSelectedItem().toString();
-
         np.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idRythm", 0) - minValues);
         npMetric.setValue(getSharedPreferences(spin.getSelectedItem().toString(), MODE_PRIVATE).getInt("idMetric", 0));
 
         resetConfigMetronome(v);
         configMetronome(v);
-
     }
+
     /**
      * Method : show popup to add preference
      * @param v
@@ -308,7 +295,6 @@ public class MetronomeActivity extends Activity {
 
     /**
      * Method : Remove preference
-     * TODO
      */
     public void removePreference(View v) {
         // remove preference
