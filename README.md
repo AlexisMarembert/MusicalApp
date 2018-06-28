@@ -29,19 +29,22 @@ option : `$ git config credential.helper store`
 - Watch this video: https://www.youtube.com/watch?v=Y6gmmQZsuLE
 
 ### TODO list
-- [ ] **Main page**
+- [x] **Main page**
   - [x] button to link "Metronome" page
   - [x] button to link "Instrument chords" page
-  - [x] button to link "Visualize music" page
-  - [ ] saved user preferences
-  - [ ] settings button
   - [x] exit button
   
 - [x] **Metronome page**
   - [x] visualize metronome
+  - [x] choose rythm
+  - [x] choose metric
   - [x] sound rhythm
+  - [x] saved user preferences
+  - [x] select user preferences
+  - [x] remove user preferences
   - [x] button set interval
   - [x] button reset interval
+  - [x] colors changed while "BIP"
   - [x] button for back to main
   
 - [ ] **Instrument chords page**
@@ -50,12 +53,7 @@ option : `$ git config credential.helper store`
   - [ ] informations to check if we are in the rhythm
   - [ ] button settings to create chords
   - [x] button for back to main
-  
-- [ ] **Visualize music**
-  - [ ] input sound
-  - [ ] visualize music per frequency
-  - [x] button for back to main
-  
+ 
 - [ ] **Additionals options**
   - [ ] drop down menu while menu page exited
   - [x] french and english edition
