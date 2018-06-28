@@ -17,8 +17,8 @@
     <string name="D">D</string>
     <string name="G">G</string>
     <string name="B">B</string>
-    <string name="addPreference">Add preference</string>
-    <string name="selectPreference">Select preference</string>
-    <string name="enter_preference_name">Enter preference name ...</string>
-    <string name="removePreference">remove preference</string>
+    <string name="addPreference">Add pref</string>
+    <string name="selectPreference">Select pref</string>
+    <string name="enter_preference_name">Enter preference name …</string>
+    <string name="removePreference">Remove pref</string>
 </resources>

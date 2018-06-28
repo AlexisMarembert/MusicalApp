@@ -17,9 +17,9 @@
     <string name="D">Re</string>
     <string name="G">Sol</string>
     <string name="B">Si</string>
-    <string name="addPreference">Ajouter préférence</string>
-    <string name="selectPreference">Sélectionner une préférence</string>
-    <string name="enter_preference_name">Entrer un nom pour la préférence ...</string>
-    <string name="removePreference">remove preference</string>
+    <string name="addPreference">Ajouter préf</string>
+    <string name="selectPreference">Choisir préf</string>
+    <string name="enter_preference_name">Entrer un nom pour la préférence …</string>
+    <string name="removePreference">Supprimer préf</string>
 </resources>
 

@@ -36,6 +36,7 @@ public class MetronomeActivity extends Activity {
     private Button resetButton;
     private Button addPrefButton;
     private Button removePrefButton;
+    private Button selectPrefButton;
     private Spinner spin;
     private Timer metroTimer;
     private boolean isRed = true;
@@ -65,7 +66,10 @@ public class MetronomeActivity extends Activity {
         resetButton = findViewById(R.id.resetConfigMetronome);
         addPrefButton = findViewById(R.id.buttonAddPreference);
         removePrefButton = findViewById(R.id.buttonRemovePreference);
+        selectPrefButton = findViewById(R.id.buttonSelectPreference);
+        spin = findViewById(R.id.spinnerChoosePreference);
 
+        addPrefButton.setEnabled(true);
         okButton.setEnabled(true);
         resetButton.setEnabled(false);
 
@@ -74,6 +78,8 @@ public class MetronomeActivity extends Activity {
         initMetronomeInterval();
         initMetronomeMetric() ;
         initSpinList();
+
+        System.out.println(spin.getSelectedItem() != null+" -----------------------------------------------------------------------------");
 
         addPrefButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,7 +219,6 @@ public class MetronomeActivity extends Activity {
      * Method : initialize spinner list
      */
     public void initSpinList() {
-        spin = findViewById(R.id.spinnerChoosePreference);
         File[] files = new File(pathToPrefs).listFiles();
         aList = new ArrayList<String>();
 
@@ -224,6 +229,14 @@ public class MetronomeActivity extends Activity {
 
         arrayPref = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, aList);
         spin.setAdapter(arrayPref);
+
+        if (spin.getSelectedItem() == null) {
+            removePrefButton.setEnabled(false);
+            selectPrefButton.setEnabled(false);
+        } else {
+            removePrefButton.setEnabled(true);
+            selectPrefButton.setEnabled(true);
+        }
     }
 
     /**
@@ -288,6 +301,9 @@ public class MetronomeActivity extends Activity {
         // create an alert dialog
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
+
+        removePrefButton.setEnabled(true);
+        selectPrefButton.setEnabled(true);
     }
 
     /**
