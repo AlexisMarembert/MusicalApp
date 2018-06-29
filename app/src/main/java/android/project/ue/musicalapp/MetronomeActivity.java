@@ -83,15 +83,13 @@ public class MetronomeActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        okButton.setEnabled(true);
-        resetButton.setEnabled(false);
-        metroTimer.cancel();
-        metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+        resetButton.performClick();
     };
 
     @Override
     protected void onResume(){
         super.onResume();
+        //okButton.performClick();
     };
 
     /**
