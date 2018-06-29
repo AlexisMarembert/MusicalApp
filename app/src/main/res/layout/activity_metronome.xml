@@ -94,12 +94,11 @@
         android:id="@+id/buttonRemovePreference"/>
 
         <Spinner
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonSelectPreference"
         android:layout_centerHorizontal="true"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
         android:id="@+id/spinnerChoosePreference"/>
 
 </RelativeLayout>

@@ -80,6 +80,20 @@ public class MetronomeActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        okButton.setEnabled(true);
+        resetButton.setEnabled(false);
+        metroTimer.cancel();
+        metroButton.setBackgroundResource(R.drawable.button_metronome_off);
+    };
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+    };
+
     /**
      * Method : set metronome interval values
      */
