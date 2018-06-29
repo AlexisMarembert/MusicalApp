@@ -83,7 +83,7 @@ public class MetronomeActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        resetButton.performClick();
+        //resetButton.performClick();
     };
 
     @Override
